@@ -1,0 +1,13 @@
+﻿@model MyWebpage.Models.Project
+
+
+@using (Html.BeginForm("RemovePost", "CMS"))
+{
+    <p>Wpisz nazwę projektu do usunięcia:</p> @Html.TextBoxFor(x => x.Name, new { @class = "form-control" });
+}
+
+        @Html.Action("Projects", "Project", null);
+        
+
+
+

@@ -1,0 +1,42 @@
+﻿@model MyWebpage.Models.ViewModels.ProjectViewModel
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("FinishModify","CMS"))
+        {
+            <div>
+                <div class="container">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })  <p>ID</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })<p>Nazwa</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.PhotoAdress, new { @class = "form-control" })<p>Adres zdjęcia</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.GitHubLink, new { @class = "form-control" })<p>Adres do Githuba</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextAreaFor(m => m.Article, new { @class = "form-control" })<p>Treść o projekcie</p>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" value="Dodaj" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</body>
+</html>

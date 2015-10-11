@@ -1,0 +1,43 @@
+﻿@model MyWebpage.Entity.ArticleRepository
+    <div id="Main" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            @foreach (var article in Model.Articles)
+            {
+                <li data-target="#Main" data-slide-to="@(article.Id-1) " @if (article.Id == 1) { @: class="active"
+                                                                                                                    }></li>
+            }
+        </ol>
+
+        <div class="carousel-inner" role="listbox">
+            @foreach (var article in Model.Articles)
+            {
+                <div @if (article.Id == 1) { @: class="item active"
+                                                 } else { @: class="item"
+                                          }>
+                    <a href="~/@article.Article">
+                       <img src="@article.PhotoShowAdress" alt="" />
+                        
+                    
+                    <div class="carousel-indicators">
+                        <h1 style="color:lightseagreen">@article.Headline</h1>
+                        <h3 style="color:blueviolet">@article.Description</h3>
+                        <p> </p>
+
+
+                    </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <a class="left carousel-control" href="#Main" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#Main" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+</div>

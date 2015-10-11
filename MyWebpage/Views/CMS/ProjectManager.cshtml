@@ -1,0 +1,45 @@
+﻿@model MyWebpage.Abstract.IProjects
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ProjectManager</title>
+</head>
+<body>
+    <div class="container"> 
+        <br />
+        @foreach (MyWebpage.Abstract.IProject project in Model.ProjectsList)
+        {
+            <br />
+            <div class="container">
+                <p class="col-lg-4">
+                    <b>
+                        @project.Name
+                    </b>
+                    @project.Article
+            </p>
+            <img src="@project.PhotoAdress" class="img-responsive col-lg-6" />
+
+                <div class="col-lg-2">
+                    @using (Html.BeginForm("RemoveHelper", "CMS"))
+                    {
+                        @Html.Hidden("id", project.Id)
+                        <input class="btn btn-danger" type="submit" value="Usuń @project.Name" />
+                    }
+                    @using (Html.BeginForm("ModifyHelper", "CMS"))
+                {
+                        @Html.Hidden("id", project.Id)
+                        <input class="btn btn-danger" type="submit" value="Modyfikuj @project.Name" />
+                    }
+                </div>
+        </div>
+        }
+
+
+    </div>
+
+    
+</body>
+</html>

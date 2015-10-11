@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CMS Strony</title>
+</head>
+<body>
+    <div>
+        <div class="container ">
+            <div class="well well-lg col-lg-3">
+                <div class="text-center">
+                    <h3>Projekty</h3>
+                    @using (Html.BeginForm("AddProjectHelper", "CMS"))
+            {
+                        <input class="btn btn-danger" type="submit" value="Dodaj" />
+                    }
+
+                    @using (Html.BeginForm("ProjectManager", "CMS"))
+            {
+                        <input class="btn btn-danger" type="submit" value="Modyfikuj lub usuń" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

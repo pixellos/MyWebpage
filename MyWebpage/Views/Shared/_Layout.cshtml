@@ -8,24 +8,25 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
-<body>
-  
-            
-   
+<body background="http://imagehosting.biz/images/2015/10/15/Fractal80e85.png">
+            <div class="container col-md-8 ">
+                @Html.Action("Carousel", "Carousel")
+            </div>
+            <div class="container col-md-4">
+                @Html.Action("ProjectsCarouselViewResult","Project")
+            </div>
+        <div class="container body-content">
+            <div class="col-md-12">
+                @RenderBody()
 
-    @Html.Action("Carousel", "Carousel")
-    <div class="container body-content">
-
-
-        @RenderBody()
-        
-        <hr />
-        <footer>
-            <p>2015 - MatthewPopielarz</p>
-        </footer>
-    </div>
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+                <hr />
+                <footer>
+                    <p>2015 - MatthewPopielarz</p>
+                    
+                </footer>
+            </div>
+        </div>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
 </html>

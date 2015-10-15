@@ -14,6 +14,12 @@ namespace MyWebpage.Controllers
         {
             _projectsRepository = projectsRepository;
         }
+
+        public PartialViewResult ProjectsCarouselViewResult()
+        {
+            return PartialView(_projectsRepository);
+
+        }
         public PartialViewResult Projects()
         {
             return PartialView(_projectsRepository);

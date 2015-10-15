@@ -216,6 +216,7 @@
     <Content Include="Views\ArticleSheets\Edit.cshtml" />
     <Content Include="Views\ArticleSheets\Index.cshtml" />
     <Content Include="Views\CMS\Login.cshtml" />
+    <Content Include="Views\Project\ProjectsCarouselViewResult.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

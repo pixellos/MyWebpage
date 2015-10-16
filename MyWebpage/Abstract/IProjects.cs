@@ -10,7 +10,7 @@ namespace MyWebpage.Abstract
     {
         List<IProject> ProjectsList { get; set; }
         void RemoveById(string id);
-        void RemoveByName(string Name);
+        void RemoveByName(string name);
         void Add(IProject project);
     }
 

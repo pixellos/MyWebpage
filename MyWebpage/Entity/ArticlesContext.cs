@@ -14,12 +14,14 @@ using MyWebpage.Entity;
 
 namespace MyWebpage.Entity
 {
+    using System.Security.Cryptography.X509Certificates;
+
     public class ArticlesContext : DbContext
     {
-        private static string _connectionString =
+        private static string connectionString =
             "Server = tcp:lv9kyjkui8.database.windows.net, 1433; Database=MyWebpageDataBase;User ID = SQLDatabase@lv9kyjkui8;Password=Test123456; Trusted_Connection=False;Encrypt=True;Connection Timeout = 30;";
 
-        public ArticlesContext() : base(_connectionString)
+        public ArticlesContext() : base(connectionString)
         {
         }
 
@@ -30,13 +32,13 @@ namespace MyWebpage.Entity
     {
         private const int MilisecondsAtDay = 60*60*24*1000;
         private const string WakeingTheTaskMessange = "I'm Awake!";
-        private Thread databaseConnectionThread;
+        private Thread _databaseConnectionThread;
 
         public DataBaseConnectionRepositoriesSingleton()
         {
-            databaseConnectionThread = new Thread(BackgroundTasks) {IsBackground = true};
+            _databaseConnectionThread = new Thread(BackgroundTasks) {IsBackground = true};
             KeepConnectionWithBase();
-            databaseConnectionThread.Start();
+            _databaseConnectionThread.Start();
         }
 
         private void BackgroundTasks()
@@ -57,41 +59,38 @@ namespace MyWebpage.Entity
 
         private void GetNewData()
         {
-            databaseConnectionThread.Interrupt();
+            _databaseConnectionThread.Interrupt();
         }
 
         private void KeepConnectionWithBase()
         {
             using (ArticlesContext connection = new ArticlesContext())
             {
-                _articles = connection.Articles.ToList<IArticleSheet>();
+                this.articles = connection.Articles.ToList<IArticleSheet>();
             }
-            ;
-
 
             using (ProjectContext connection = new ProjectContext())
             {
-                _projectsList = (connection.Projects.ToList<IProject>());
+                this.projectsList = (connection.Projects.ToList<IProject>());
             }
         }
 
-        private object ArticleLock = new object();
-        private List<IArticleSheet> _articles;
+        private object articleLock = new object();
+        private List<IArticleSheet> articles;
 
         public List<IArticleSheet> Articles
         {
-            get { return _articles; }
+            get { return this.articles; }
             set
             {
-                lock (ArticleLock)
+                lock (this.articleLock)
                 {
                     ArticlesContext connection = new ArticlesContext();
-                    _articles = value;
+                    this.articles = value;
                     foreach (var item in value)
                     {
                         connection.Articles.Add(item as ArticleSheet);
                     }
-                    var info = new ArticleRepository().Articles;
                     connection.SaveChanges();
                     connection.Dispose();
                 }
@@ -131,11 +130,11 @@ namespace MyWebpage.Entity
             GetNewData();
         }
 
-        public void RemoveByName(string Name)
+        public void RemoveByName(string name)
         {
             using (ProjectContext connection = new ProjectContext())
             {
-                var toremove = connection.Projects.SingleOrDefault(x => x.Name == Name);
+                var toremove = connection.Projects.SingleOrDefault(x => x.Name == name);
                 if (toremove != null)
                 {
                     connection.Projects.Remove(toremove);
@@ -145,15 +144,14 @@ namespace MyWebpage.Entity
             GetNewData();
         }
 
-        private List<IProject> _projectsList;
+        private List<IProject> projectsList;
 
         public List<IProject> ProjectsList
         {
-            get { return _projectsList; }
+            get { return this.projectsList; }
             set { }
         }
     }
-
     #endregion
 }
 

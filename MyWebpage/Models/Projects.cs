@@ -9,22 +9,22 @@ namespace MyWebpage.Models
 {
     public class Projects : IProjects
     {
-        List<IProject> _project;
+        List<IProject> project;
         public Projects()
         {
-            _project = new List<IProject>();
+            this.project = new List<IProject>();
         }
 
         public List<IProject> ProjectsList
         {
             get
             {
-                return _project;
+                return this.project;
             }
 
             set
             {
-                _project = value;
+                this.project = value;
             }
         }
 
@@ -38,7 +38,7 @@ namespace MyWebpage.Models
             throw new NotImplementedException();
         }
 
-        public void RemoveByName(string Name)
+        public void RemoveByName(string name)
         {
             throw new NotImplementedException();
         }

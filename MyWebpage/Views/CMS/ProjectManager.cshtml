@@ -23,12 +23,12 @@
             <img src="@project.PhotoAdress" class="img-responsive col-lg-6" />
 
                 <div class="col-lg-2">
-                    @using (Html.BeginForm("RemoveHelper", "CMS"))
+                    @using (Html.BeginForm("RemoveHelper", "Cms"))
                     {
                         @Html.Hidden("id", project.Id)
                         <input class="btn btn-danger" type="submit" value="Usuń @project.Name" />
                     }
-                    @using (Html.BeginForm("ModifyHelper", "CMS"))
+                    @using (Html.BeginForm("ModifyHelper", "Cms"))
                 {
                         @Html.Hidden("id", project.Id)
                         <input class="btn btn-danger" type="submit" value="Modyfikuj @project.Name" />

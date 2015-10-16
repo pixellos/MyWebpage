@@ -10,13 +10,13 @@ using MyWebpage.Models.ViewModels;
 
 namespace MyWebpage.Controllers
 {
-    public class CMSController : Controller
+    public class CmsController : Controller
     {
         IArticles _articlesRepo;
         IProjects _projectsRepo;
         IProject _projectRepo;
 
-        public CMSController(IArticles iArticles, IProjects iProjects, IProject iProject)
+        public CmsController(IArticles iArticles, IProjects iProjects, IProject iProject)
         {
             _articlesRepo = iArticles;
             _projectsRepo = iProjects;

@@ -11,12 +11,12 @@
             <div class="well well-lg col-lg-3">
                 <div class="text-center">
                     <h3>Projekty</h3>
-                    @using (Html.BeginForm("AddProjectHelper", "CMS"))
+                    @using (Html.BeginForm("AddProjectHelper", "Cms"))
             {
                         <input class="btn btn-danger" type="submit" value="Dodaj" />
                     }
 
-                    @using (Html.BeginForm("ProjectManager", "CMS"))
+                    @using (Html.BeginForm("ProjectManager", "Cms"))
             {
                         <input class="btn btn-danger" type="submit" value="Modyfikuj lub usuń" />
                     }

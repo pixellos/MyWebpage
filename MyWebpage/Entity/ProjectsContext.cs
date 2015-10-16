@@ -51,11 +51,11 @@ namespace MyWebpage.Entity
             }
         }
 
-        public void RemoveByName(string Name)
+        public void RemoveByName(string name)
         {
             using (ProjectContext connection = new ProjectContext())
             {
-                var toremove = connection.Projects.SingleOrDefault(x => x.Name == Name);
+                var toremove = connection.Projects.SingleOrDefault(x => x.Name == name);
                 if (toremove !=null)
                 {
                     connection.Projects.Remove(toremove);

@@ -10,7 +10,8 @@ namespace MyWebpage.Controllers
 {
     public class CarouselController : Controller
     {
-        IArticles _articleRepo;
+        private IArticles _articleRepo;
+
         public CarouselController(IArticles articlesRepository)
         {
             _articleRepo = articlesRepository;

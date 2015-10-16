@@ -17,11 +17,7 @@ namespace MyWebpage.Controllers
             return PartialView();
         }
 
-        public ViewResult LoginAccepted()
-        {
-
-            return View();
-        }
+       
 
         [HttpPost]
         public ActionResult Login(LoginData model = null)

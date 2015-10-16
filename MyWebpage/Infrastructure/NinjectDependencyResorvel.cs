@@ -32,8 +32,10 @@ namespace MyWebpage.Infrastructure
 
         private void AddBindings()
         {
-            _kernel.Bind<IArticles>().To<ArticleRepository>();
-            _kernel.Bind<IProjects>().To<ProjectRepository>();
+            var singleton = new DataBaseConnectionRepositoriesSingleton();
+            _kernel.Bind<IArticles>().ToConstant((IArticles)singleton);
+            
+            _kernel.Bind<IProjects>().ToConstant((IProjects)singleton);
             _kernel.Bind<IProject>().To<Project>();
             _kernel.Bind<IArticleSheet>().To<ArticleSheet>();
         }

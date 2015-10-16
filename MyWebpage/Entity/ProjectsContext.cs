@@ -18,7 +18,6 @@ namespace MyWebpage.Entity
        
         public ProjectContext() : base("Server = tcp:lv9kyjkui8.database.windows.net, 1433; Database=MyWebpageDataBase;User ID = SQLDatabase@lv9kyjkui8;Password=Test123456; Trusted_Connection=False;Encrypt=True;Connection Timeout = 30;")
         { }
-        
         public DbSet<Project> Projects { get; set; }
     }
 
@@ -30,10 +29,7 @@ namespace MyWebpage.Entity
             {
                 using (ProjectContext connection = new ProjectContext())
                 {
-                    
                         connection.Projects.Add(project as Project);
-
-
                     try
                     {
                         connection.SaveChanges();
@@ -69,7 +65,6 @@ namespace MyWebpage.Entity
         }
         public List<IProject> ProjectsList
         {
-            
             get
             {
                 using (ProjectContext connection = new ProjectContext())
@@ -78,10 +73,8 @@ namespace MyWebpage.Entity
                     return toReturn;
                 }
             }
-
             set
             {
-             
             }
         }
     }

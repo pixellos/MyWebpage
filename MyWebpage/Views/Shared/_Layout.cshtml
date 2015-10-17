@@ -8,23 +8,43 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
-<body background="http://imagehosting.biz/images/2015/10/15/Fractal80e85.png">
-            <div class="container col-md-8 ">
-                @Html.Action("Carousel", "Carousel")
-            </div>
-            <div class="container col-md-4">
-                @Html.Action("ProjectsCarouselViewResult","Project")
-            </div>
-        <div class="container body-content">
-            <div class="col-md-12">
-                @RenderBody()
+<body>
 
-                <hr />
-                <footer>
-                    <p>2015 - MatthewPopielarz</p>
-                    
-                </footer>
+    <!-- Navigation -->
+    
+    <!-- Image Background Page Header -->
+    <!-- Note: The background image is set within the business-casual.css file. -->
+<header class="business-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+            
             </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Page Content -->
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="container">
+                <center>
+                    @Html.Action("Carousel", "Carousel")
+                </center>
+            </div>
+        </div>
+        
+    <div class="container body-content">
+        <div class="col-md-12">
+            @RenderBody()
+            <hr/>
+            <footer>
+                <p>2015 - MatthewPopielarz</p>
+
+            </footer>
+        </div>
+    </div>
         </div>
         <script src="~/Scripts/jquery-1.10.2.min.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>

@@ -15,11 +15,13 @@ namespace MyWebpage.Controllers
         IArticles _articlesRepo;
         IProjects _projectsRepo;
         IProject _projectRepo;
+        private IUsers _usersRepo;
 
-        public CmsController(IArticles iArticles, IProjects iProjects, IProject iProject)
+        public CmsController(IArticles iArticles, IProjects iProjects, IProject iProject, IUsers iUsers)
         {
             _articlesRepo = iArticles;
             _projectsRepo = iProjects;
+            _usersRepo = iUsers;
             _projectRepo = iProject;
         }
 
@@ -39,7 +41,7 @@ namespace MyWebpage.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.UserName == "admin" && model.Password == "admin")
+                if (_usersRepo.IsPasswordOfUserVaild(model.UserName,model.Password))
                 {
                     return View("Index",null);
                 }
@@ -50,26 +52,25 @@ namespace MyWebpage.Controllers
         [HttpPost]
         public ViewResult ProjectManager()
         {
-            
             return View(_projectsRepo);     
         }
         
         [HttpPost]
-        public ActionResult RemoveHelper(string id)
+        public ActionResult RemoveProjectHelper(string id)
         {
             _projectsRepo.RemoveById(id);
             return View("ProjectManager",_projectsRepo);
         }
 
         [HttpPost]
-        public ActionResult ModifyHelper(string id)
+        public ActionResult ModifyProjectHelper(string id)
         {
             IProject project = _projectsRepo.ProjectsList.Single(x => x.Id == id);
             return View("Helper/ModifyHelper", project);
         }
 
         [HttpPost]
-        public ActionResult FinishModify(Project model)
+        public ActionResult FinishProjectModify(Project model)
         {
             if (_projectsRepo.ProjectsList.SingleOrDefault(x=>x.Id == model.Id && x.Name == model.Name) != null)
             {

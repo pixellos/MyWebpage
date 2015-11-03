@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <title>Sztuka kodowania - Mateusz Popielarz</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/MyStyle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+    var cookies = document.cookie.split("; ");
+
+    if (cookies[0] !== "ALERT=true") {
+        alert("Ta strona używa ciasteczek żeby poinformować Cię, że używa ciasteczek ;)");
+        document.cookie = "ALERT=true;" + "expires=Monday, 04-Apr-2016 05:00:00 GMT;";
+    }
+</script>
+
+<div>
+    <center><img src="http://i.imgur.com/l6yopkR.gif"/></center>
+    @RenderBody()
+</div>
+</body>
+</html>

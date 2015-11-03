@@ -1,0 +1,45 @@
+﻿
+@model MyWebpage.Abstract.IBlogPost
+@{
+    Layout = "~/Views/Shared/_CMSLayout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ModyfiHelper</title>
+</head>
+<body>
+    <div>
+        @using (@Html.BeginForm("FinishBlogModify", "Blog"))
+        {
+            <div>
+                <div class="container">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })  <p>ID</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Content, new { @class = "form-control" })<p>Nagłówek</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.PhotoAdress, new {@class = "form-control"})<p>Adres zdjęcia</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.PhotoDescribtion, new { @class = "form-control" })<p>Opis zdjęcia</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.BlogDateTime, new { @class = "form-control" })<p>Data Wpisu</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextAreaFor(m => m.Content, new { @class = "form-control" })<p>Treść o projekcie</p>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" value="Dodaj" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

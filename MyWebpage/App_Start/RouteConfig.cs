@@ -15,12 +15,16 @@ namespace MyWebpage
             
                         
             routes.MapRoute(
-                name: "Articles",
-                url: "{article}",
-                defaults: new { controller = "Article",  action = "Index",  article = "AboutMeArticle"});
-
-            routes.MapRoute(
                 name: "Default",
+               url:"",
+                defaults: new { controller = "Main",  action = "Index"});
+            routes.MapRoute(
+                name: "Droids",
+                url: "Droid",
+                defaults: new {controller = "Warring", action = "PageDoesntExistOrYouDontHaveAccess"}
+                );
+            routes.MapRoute(
+                name: "Actions",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional }
             );

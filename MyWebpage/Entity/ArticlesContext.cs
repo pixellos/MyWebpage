@@ -19,8 +19,9 @@ namespace MyWebpage.Entity
     public class ArticlesContext : DbContext
     {
         private static string connectionString =
-            "Server = tcp:lv9kyjkui8.database.windows.net, 1433; Database=MyWebpageDataBase;User ID = SQLDatabase@lv9kyjkui8;Password=Test123456; Trusted_Connection=False;Encrypt=True;Connection Timeout = 30;";
+            @"Data Source=SQL5011.Smarterasp.net;Initial Catalog=DB_9D8EA4_towebpage;User Id=DB_9D8EA4_towebpage_admin;Password=DATA123456;";
 
+        // "Server = tcp:lv9kyjkui8.database.windows.net, 1433; Database=MyWebpageDataBase;User ID = SQLDatabase@lv9kyjkui8;Password=Test123456; Trusted_Connection=False;Encrypt=True;Connection Timeout = 30;";
         public ArticlesContext() : base(connectionString)
         {
         }
@@ -75,7 +76,7 @@ namespace MyWebpage.Entity
             }
         }
 
-        private object articleLock = new object();
+        private readonly object articleLock = new object();
         private List<IArticleSheet> articles;
 
         public List<IArticleSheet> Articles
@@ -111,8 +112,9 @@ namespace MyWebpage.Entity
                     {
                         connection.SaveChanges();
                     }
-                    catch (Exception)
+                    catch (Exception debugException)
                     {
+                        Console.WriteLine(debugException);
                     }
                 }
             }
@@ -151,6 +153,7 @@ namespace MyWebpage.Entity
             get { return this.projectsList; }
             set { }
         }
+        
     }
     #endregion
 }

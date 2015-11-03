@@ -15,8 +15,12 @@ namespace MyWebpage.Entity
 {
     public class ProjectContext :DbContext
     {
-       
-        public ProjectContext() : base("Server = tcp:lv9kyjkui8.database.windows.net, 1433; Database=MyWebpageDataBase;User ID = SQLDatabase@lv9kyjkui8;Password=Test123456; Trusted_Connection=False;Encrypt=True;Connection Timeout = 30;")
+
+        public ProjectContext() : base(
+            @"Data Source=SQL5011.Smarterasp.net;Initial Catalog=DB_9D8EA4_towebpage;User Id=DB_9D8EA4_towebpage_admin;Password=DATA123456;"
+
+        )
+        //"Server = tcp:lv9kyjkui8.database.windows.net, 1433; Database=MyWebpageDataBase;User ID = SQLDatabase@lv9kyjkui8;Password=Test123456; Trusted_Connection=False;Encrypt=True;Connection Timeout = 30;")
         { }
         public DbSet<Project> Projects { get; set; }
     }

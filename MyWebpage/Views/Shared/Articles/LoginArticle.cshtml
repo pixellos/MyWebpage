@@ -1,1 +1,12 @@
-﻿@Html.Action("Login","Login")
+﻿@model MyWebpage.Models.LoginData
+
+@using (Html.BeginForm("Login", "Cms"))
+{
+    <div class="row-fluid">
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        <input type="submit" value="LogIn" class="btn bg-primary" />
+    </div>
+}
+
+

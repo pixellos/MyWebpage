@@ -1,0 +1,45 @@
+﻿@model MyWebpage.Abstract.IBlogPost
+    
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("AddBlogHelper", "Blog"))
+        {
+            <div>
+                <div class="container">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })  <p>ID</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Header, new { @class = "form-control" })<p>Nagłówek</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.PhotoAdress, new { @class = "form-control" })<p>Adres zdjęcia</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.PhotoDescribtion, new { @class = "form-control" })<p>Podpis do zdjecia</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextAreaFor(m => m.Content, new {@class = "form-control"})<p>Treść bloga</p>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextAreaFor(m => m.BlogDateTime, new { @class = "form-control" }) @Html.TextArea(DateTime.Now.ToString())
+                    </div>
+                  
+                    <div class="col-md-4">
+                        <input type="submit" value="Dodaj" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</body>
+</html>

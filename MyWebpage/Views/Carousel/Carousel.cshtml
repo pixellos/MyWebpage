@@ -10,11 +10,11 @@
         <div class="carousel-inner" role="listbox">
             @foreach (var article in Model.Articles)
             {
-                <div @if (article.Id == 1) { @: class="item active"
-                                                 } else { @: class="item"
+                <div @if (article.Id == 1) { @:class="item active"
+                                                 } else { @:class="item"
                                           }>
                     <a href="~/@article.Article">
-                       <img src="@article.PhotoShowAdress" alt="" />
+                       <img src="@article.PhotoShowAdress" alt="" height="190" />
                     <div class="carousel-indicators">
                         <h1 style="color:lightseagreen">@article.Headline</h1>
                         <h3 style="color:blueviolet">@article.Description</h3>

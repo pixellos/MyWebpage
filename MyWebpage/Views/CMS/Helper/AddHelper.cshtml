@@ -1,5 +1,7 @@
 ﻿@model MyWebpage.Models.ViewModels.ProjectViewModel
-
+@{
+    Layout = "~/Views/Shared/_CMSLayout.cshtml";
+}
 
 <!DOCTYPE html>
 
@@ -10,7 +12,7 @@
 </head>
 <body>
     <div>
-        @using (Html.BeginForm("FinishModify","Cms"))
+        @using (Html.BeginForm("FinishProjectModify","Cms"))
         {
             <div>
                 <div class="container">

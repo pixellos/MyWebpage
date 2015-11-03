@@ -1,6 +1,8 @@
 ﻿@model MyWebpage.Models.Project
 
-
+@{
+    Layout = "~/Views/Shared/_CMSLayout.cshtml";
+}
 @using (Html.BeginForm("RemovePost", "Cms"))
 {
     <p>Wpisz nazwę projektu do usunięcia:</p> @Html.TextBoxFor(x => x.Name, new { @class = "form-control" });

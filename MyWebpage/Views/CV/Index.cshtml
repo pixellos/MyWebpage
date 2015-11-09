@@ -1,22 +1,23 @@
-﻿
-
+﻿<button class="right" id="PlButton">PL</button>
+<button class="right" id="EnButton">EN</button>
 <div class="text-center text-primary">
     <h1>Curriculum Vitae</h1>
 </div>
 
 <div class="text-center">
-    <h2>
+    <h2 id="CVTitle">
         Młodszy programista C#
     </h2>
 </div>
-<div><div class="text-left"></div>
-    <img src="http://i.imgur.com/BFMJXVD.png?1"  class="img-responsive img-thumbnail" onclick="ShakeMyPhoto.Shake(20)" id="myPhoto"/>
+<div>
+    <div class="text-left"></div>
+    <img src="http://i.imgur.com/BFMJXVD.png?1" class="img-responsive img-thumbnail" onclick="ShakeMyPhoto.Shake(20)" id="myPhoto"/>
     <div class="text-right"
-         onmouseover="AdressText.ChangeSpaceing(2,20)"
-         onmouseout="AdressText.ChangeSpaceing(-2,20)"
-          id="AdressText">
-        
-        <h3>
+         onmouseover="AdressText.ChangeSpaceing(2, 20)"
+         onmouseout="AdressText.ChangeSpaceing(-2, 20)"
+         id="AdressText">
+
+        <h3 id="CVAdress">
             Mateusz Popielarz<br/>
             Podkarpacie, Krosno<br/>
             +48 732 010 908<br/>
@@ -28,7 +29,7 @@
 <br/>
 <div class="container jumbotron">
     <div class="text-center" style="color: orange;">
-        <h2>Technologie</h2>
+        <h2 id="CVTechnology">Technologie</h2>
         <br/>
     </div>
     <div class="col-xs-2">
@@ -78,28 +79,69 @@
     </div>
 </div>
 <div class="container">
-    <ul class="list-inline"></ul>
-    <li>
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Komunikatywny w mowie i w piśmie">
-            <img src="http://i.imgur.com/IXiwry6.png" id="englishCloud" class="img-responsive col-xs-6" />
-        </a>
-    </li>
 
-    <li>
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Podstawowy">
-            <img src="http://i.imgur.com/lw6ib5p.png" id="deutschCloud" class="img-responsive col-xs-3" />
-        </a>
-    </li>
-    
+    <img src="http://i.imgur.com/IXiwry6.png" id="englishCloud" class="img-responsive col-xs-6"
+         data-toggle="tooltip" data-placement="right" title="Komunikatywny w mowie i w piśmie"/>
 
+    <img data-toggle="tooltip" data-placement="right" title="Podstawowy
+             " src="http://i.imgur.com/lw6ib5p.png" id="deutschCloud" class="img-responsive col-xs-3"/>
 </div>
 
 
 <script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
+
+<script>
+    //jQuerry
+    var CVLanguage = function() {
+        this.CVTitle = "";
+        this.CVAdress = "";
+        this.englishCloud = "";
+        this.deutschCloud = "";
+        this.CVTechnology = "";
+    }
+
+    CVLanguage.prototype.ChangeLanguage = function() {
+        $("#CVAdress").html(this.CVAdress);
+        $("#CVTitle").text(this.CVTitle);
+        $("#englishCloud").attr("data-original-title", this.englishCloud);
+        $("#deutschCloud").attr("data-original-title", this.deutschCloud);
+        $("#CVTechnology").text(this.CVTechnology);
+
+    };
+
+    var PlCVLanguage = new CVLanguage();
+    PlCVLanguage.CVTitle = "Młodszy programista C#";
+    PlCVLanguage.CVAdress = "Mateusz Popielarz<br/>Podkarpacie, Krosno<br/>+48 732 010 908<br/>popiel.mati@gmail.com";
+    PlCVLanguage.englishCloud = "Komunikatywny w mowie i w piśmie";
+    PlCVLanguage.deutschCloud = "Podstawowy";
+    PlCVLanguage.CVTechnology = "Technologie";
+
+    var EngCVLanguage = new CVLanguage();
+    EngCVLanguage.CVTitle = "Junior c# Developer";
+    EngCVLanguage.CVAdress = "Matthew Popielarz<br/>Subcarpatian, Krosno<br/>+48 732 010 908<br/>popiel.mati@gmail.com";
+    EngCVLanguage.englishCloud = "Communicative both in writing and speaking";
+    EngCVLanguage.deutschCloud = "Basic knowledge";
+    EngCVLanguage.CVTechnology = "Technologies";
+
+
+    $('#EnButton').click(
+        function() {
+            EngCVLanguage.ChangeLanguage();
+        }
+    );
+
+    $('#PlButton').click(
+        function() {
+            PlCVLanguage.ChangeLanguage();
+        }
+    );
+
+</script>
+
 
 <script>
     //Scripts has been designed by author of this webpage, Matthew Popielarz.
@@ -113,7 +155,7 @@ $(document).ready(function(){
 
     ShakeIt.prototype.Shake = function(degree) {
         this.deg = (this.deg + degree) % 360;
-        this.hook.style.transform = "skew(-"+ this.deg+"deg"+"," + this.deg + "deg)";
+        this.hook.style.transform = "skew(-" + this.deg + "deg" + "," + this.deg + "deg)";
         this.hook.style.transform.skewY = this.deg + "deg";
     }
 
@@ -121,13 +163,13 @@ $(document).ready(function(){
         this.hook = document.getElementById(elementId);
         this.deg = 0;
         this.intervalHandler = null;
-        
+
     }
 
     CanRotate.prototype.rotateThis = function(deg) {
         this.deg = (this.deg + deg) % 360;
         this.hook.style.transform = "rotate(" + this.deg + "deg";
-}
+    }
     CanRotate.prototype.StartRotate = function(degree, perTime) {
         this.intervalHandler = setInterval(() => {
             this.rotateThis(degree);
@@ -151,16 +193,17 @@ $(document).ready(function(){
             this.hook.style.wordSpacing = this.spaceing + "px";
         }
     }
+
     CanWordSpace.prototype.ChangeSpaceing = function(space, perTime) {
         clearInterval(this.intervalHandler);
         this.intervalHandler = setInterval(() => {
             this.spaceThis(space);
-        },perTime);
+        }, perTime);
     }
 
     var ShakeMyPhoto = new ShakeIt('myPhoto');
     var AdressText = new CanWordSpace('AdressText');
-    
+
     var c3Rotate = new CanRotate('c3');
     var jsRotate = new CanRotate('js');
     var aspRotate = new CanRotate('asp');

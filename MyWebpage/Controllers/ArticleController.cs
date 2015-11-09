@@ -7,22 +7,23 @@ using MyWebpage.Abstract;
 using MyWebpage.Models;
 
 
-
 namespace MyWebpage.Controllers
 {
     public class ArticleController : Controller
     {
-        IArticles _articlesRepository;
+        private IArticles _articlesRepository;
+
         public ArticleController(IArticles articles)
         {
             _articlesRepository = articles;
         }
+
         // GET: Article
         public ActionResult Index(string article = "AboutMeArticle")
         {
             var getArticleByParametr = _articlesRepository.Articles.FirstOrDefault(
-                    x => x.Article == article
-                    );
+                x => x.Article == article
+                );
             if (getArticleByParametr == null)
             {
                 getArticleByParametr = new ArticleSheet()
@@ -33,7 +34,7 @@ namespace MyWebpage.Controllers
                     Headline = "Uciekł :/"
                 };
             }
-            
+
             return View(getArticleByParametr);
         }
     }

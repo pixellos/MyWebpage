@@ -7,6 +7,7 @@ namespace MyWebpage.Abstract
     {
         [Key]
         int Id { get; set; }
+
         DateTime BlogDateTime { get; set; }
         string Content { get; set; }
         string Header { get; set; }

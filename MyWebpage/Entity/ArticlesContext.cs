@@ -153,8 +153,8 @@ namespace MyWebpage.Entity
             get { return this.projectsList; }
             set { }
         }
-        
     }
+
     #endregion
 }
 

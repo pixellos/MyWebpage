@@ -9,7 +9,8 @@ namespace MyWebpage.Models
 {
     public class Projects : IProjects
     {
-        List<IProject> project;
+        private List<IProject> project;
+
         public Projects()
         {
             this.project = new List<IProject>();
@@ -17,15 +18,9 @@ namespace MyWebpage.Models
 
         public List<IProject> ProjectsList
         {
-            get
-            {
-                return this.project;
-            }
+            get { return this.project; }
 
-            set
-            {
-                this.project = value;
-            }
+            set { this.project = value; }
         }
 
         public void Add(IProject project)

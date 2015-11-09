@@ -12,6 +12,7 @@ namespace MyWebpage.Controllers
     public class BlogController : Controller
     {
         private IBlogPosts _blogPosts;
+
         public BlogController(IBlogPosts blogPosts)
         {
             _blogPosts = blogPosts;
@@ -20,8 +21,8 @@ namespace MyWebpage.Controllers
         [HttpPost]
         public ActionResult RemoveBlogHelperResult(int id)
         {
-          _blogPosts.RemoveById(id);
-               
+            _blogPosts.RemoveById(id);
+
             return View("BlogManagerResult", _blogPosts);
         }
 
@@ -35,7 +36,7 @@ namespace MyWebpage.Controllers
         [HttpPost]
         public ActionResult FinishBlogModify(BlogPost model)
         {
-            if (_blogPosts.BlogPosts.Exists(x=>x.Id == model.Id))
+            if (_blogPosts.BlogPosts.Exists(x => x.Id == model.Id))
             {
                 _blogPosts.RemoveById(model.Id);
             }
@@ -45,9 +46,8 @@ namespace MyWebpage.Controllers
                 temp.Add(model);
                 _blogPosts.BlogPosts = temp;
             }
-            return View("BlogManagerResult",_blogPosts);
+            return View("BlogManagerResult", _blogPosts);
         }
-
 
 
         [HttpPost]
@@ -57,13 +57,13 @@ namespace MyWebpage.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddBlogHelper(MyWebpage.Models.BlogPost post= null)
+        public ActionResult AddBlogHelper(MyWebpage.Models.BlogPost post = null)
         {
-            if (ModelState.IsValid && post.Content!=null)
+            if (ModelState.IsValid && post.Content != null)
             {
                 var temp = _blogPosts.BlogPosts;
                 temp.Add(post);
-                _blogPosts.BlogPosts = temp ;
+                _blogPosts.BlogPosts = temp;
             }
             return View("Helper/AddBlogPostHelper", post);
         }

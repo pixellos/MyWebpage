@@ -12,6 +12,7 @@ namespace MyWebpage.Models
     {
         [Key]
         public int Id { get; set; }
+
         public DateTime BlogDateTime { get; set; }
         public string Header { get; set; }
         public string Content { get; set; }

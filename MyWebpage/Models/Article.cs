@@ -10,10 +10,6 @@ namespace MyWebpage.Models
 {
     public class ArticlesModel : IArticles
     {
-        public List<IArticleSheet> Articles
-        {
-            get;
-            set;
-        }
+        public List<IArticleSheet> Articles { get; set; }
     }
 }

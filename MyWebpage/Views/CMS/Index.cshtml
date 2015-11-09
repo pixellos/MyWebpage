@@ -4,7 +4,7 @@
 }
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <title>CMS Strony</title>
 </head>
 <body>
@@ -40,6 +40,22 @@
                 }
             </div>
         </div>
+        <div class="well well-lg col-lg-3">
+            <div class="text-center">
+                <h3>Konta</h3>
+                @using (Html.BeginForm("AddUserHelper", "Login"))
+                {
+                    <input class="btn btn-danger" type="submit" value="Dodaj"/>
+                }
+
+                @using (Html.BeginForm("ChangePasswordHelper", "Login"))
+                {
+                    <input class="btn btn-danger" type="submit" value="Zmień hasło"/>
+                }
+
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

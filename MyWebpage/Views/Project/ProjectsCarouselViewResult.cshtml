@@ -5,22 +5,27 @@
 
 @{
     <div id="ProjectCarousel" class="carousel slide fill" data-ride="carousel1">
-       
+
 
         <div class="carousel-inner" role="listbox">
             @foreach (var project in Model.ProjectsList)
             {
-                <div @if (project.Id == "1") { @: class="item active"
-                                                                      } else { @: class="item"
-                                                               }>
-                    
-                       <img src="@project.PhotoAdress" alt="" class="cover" />
-                        <div class="carousel-indicators">
-                            <h1 style="color:red">@project.Name</h1>
-                            
-                            <p> </p>
-                        </div>
-                    
+                <div @if (project.Id == "1")
+                     {
+                         @: class="item active"
+                     }
+                     else
+                     {
+                         @: class="item"
+                     }>
+
+                    <img src="@project.PhotoAdress" alt="" class="cover"/>
+                    <div class="carousel-indicators">
+                        <h1 style="color: red">@project.Name</h1>
+
+                        <p> </p>
+                    </div>
+
                 </div>
             }
         </div>

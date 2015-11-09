@@ -7,19 +7,33 @@
 <div class="container">
     <div class="gadinetBar">
         <ul class="nav nav-tabs">
-            <li ><a data-toggle="tab" href="#overview">Strona główna</a></li>
-            <li><a data-toggle="tab" href="#projects">Projekty</a></li>
-            <li><a data-toggle="tab" href="#blog">Blog</a></li>
-            <li class="active"><a data-toggle="tab" href="#about">O mnie</a></li>
-            <li><a data-toggle="tab" href="#faq">FAQ</a></li>
-            <li><a data-toggle="tab" href="#login">CMS</a></li>
-            <li class="right"><a data-toggle="tab" href="#cv">CV</a></li>
+            <li >
+                <a data-toggle="tab" href="#overview">Strona główna</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#projects">Projekty</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#blog">Blog</a>
+            </li>
+            <li class="active">
+                <a data-toggle="tab" href="#about">O mnie</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#faq">FAQ</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#login">CMS</a>
+            </li>
+            <li class="right">
+                <a data-toggle="tab" href="#cv">CV</a>
+            </li>
         </ul>
     </div>
 
     <div class="tab-content">
         <div class="tab-pane fade" id="cv">
-            @Html.Action("Index","Cv")
+            @Html.Action("Index", "Cv")
         </div>
         <div class="tab-pane fade" id="overview">
             @Html.Action("NewestPostsPartialViewResult", "Blog")
@@ -41,4 +55,3 @@
         </div>
     </div>
 </div>
-

@@ -13,5 +13,4 @@ namespace MyWebpage.Abstract
         void RemoveByName(string name);
         void Add(IProject project);
     }
-
 }

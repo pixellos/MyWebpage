@@ -8,6 +8,6 @@ namespace MyWebpage.Abstract
 {
     public interface IArticles
     {
-         List<IArticleSheet> Articles { get; set; }
+        List<IArticleSheet> Articles { get; set; }
     }
 }

@@ -10,15 +10,20 @@ namespace MyWebpage.Abstract
 {
     public enum AccessLevel
     {
-        User,UberUser,Admin,
+        Error = -1,
+        User,
+        UberUser,
+        Admin,
     }
 
     public interface IUser
     {
         [Key]
         int Id { get; set; }
-        [Index("FirstName",1,IsUnique = true)]
+
+        [Index("FirstName", 1, IsUnique = true)]
         string UserName { get; set; }
+
         string Email { get; set; }
         int SHA256Password { get; set; }
         AccessLevel AccessLevel { get; set; }

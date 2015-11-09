@@ -16,6 +16,7 @@ namespace MyWebpage.Controllers
         {
             _articleRepo = articlesRepository;
         }
+
         public PartialViewResult Carousel(string articlecece = "About")
         {
             return PartialView(_articleRepo);

@@ -9,11 +9,12 @@ using MyWebpage.Abstract;
 
 namespace MyWebpage.Entity
 {
-    public class AccountContext :DbContext
+    public class AccountContext : DbContext
     {
-        public AccountContext(string connectionString) :base(connectionString)
+        public AccountContext(string connectionString) : base(connectionString)
         {
         }
+
         public DbSet<User> Users { get; set; }
     }
 
@@ -29,26 +30,26 @@ namespace MyWebpage.Entity
     public class UserRepository : IUsers
     {
         private string _connectionString;
-        public UserRepository(string connectionString= MyWebpage.Constats.BlogPostsConnectionString)
+
+        public UserRepository(string connectionString = MyWebpage.Constats.BlogPostsConnectionString)
         {
             _connectionString = connectionString;
             _context = new AccountContext(_connectionString);
         }
 
         protected AccountContext _context;
-        
+
         protected IEnumerable<User> Users
         {
-            
-            get { return  _context.Users; }
+            get { return _context.Users; }
             set
             {
                 using (var connectionWithDataBase = _context)
-                
+
                 {
                     foreach (var user in value)
                     {
-                       connectionWithDataBase.Users.AddOrUpdate(user);
+                        connectionWithDataBase.Users.AddOrUpdate(user);
                     }
                     connectionWithDataBase.SaveChanges();
                 }
@@ -76,11 +77,28 @@ namespace MyWebpage.Entity
 
         private User GetUser(string userName)
         {
-            return Users.SingleOrDefault(x => x.UserName == userName);
+            if (userName == null)
+            {
+                return null;
+            }
+            try
+            {
+                return Users.FirstOrDefault(x => x.UserName == userName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            
         }
 
         public bool IsPasswordOfUserVaild(string userName, string password)
         {
+            if (userName == null || password == null)
+            {
+                return false;
+            }
             var user = GetUser(userName);
             if (null != user)
             {
@@ -92,7 +110,14 @@ namespace MyWebpage.Entity
 
         public bool TryToChangePassword(string userName, string oldPassword, string newPassword)
         {
-            if (!IsPasswordOfUserVaild(userName, oldPassword)) return false;
+            if (userName == null ||
+                oldPassword == null ||
+                newPassword == null ||
+                !IsPasswordOfUserVaild(userName, oldPassword))
+            {
+                return false;
+            }
+
             var user = GetUser(userName);
             user.SHA256Password = newPassword.GetHashCode();
             return AddOrUpdateUser(user);
@@ -100,22 +125,41 @@ namespace MyWebpage.Entity
 
         public bool RegisterNewUser(string userName, string password, string email)
         {
-           
-            if (GetUser(userName)!=null) return false;
-            return AddOrUpdateUser(
-                new User()
+            try
+            {
+                if (GetUser(userName) != null)
                 {
-                    AccessLevel = AccessLevel.User,
-                    Email = email,
-                    SHA256Password = GetHashOfPassword(password),
-                    UserName = userName
-                });
+                    return false;
+                }
+                
+                return AddOrUpdateUser(
+                    new User()
+                    {
+                        AccessLevel = AccessLevel.User,
+                        Email = email,
+                        SHA256Password = GetHashOfPassword(password),
+                        UserName = userName
+                    });
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                return false;
+            }
         }
 
         public AccessLevel GeAccessLevel(string userName)
         {
-            return  GetUser(userName)
-                .AccessLevel;
+            try
+            {
+                return GetUser(userName)
+                    .AccessLevel;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                return AccessLevel.Error;
+            }
         }
     }
 }

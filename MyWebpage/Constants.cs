@@ -14,7 +14,7 @@ namespace MyWebpage
 
         public static ArticlesModel ArticlesModel = new ArticlesModel()
         {
-             Articles = new List<IArticleSheet>()
+            Articles = new List<IArticleSheet>()
             {
                 new ArticleSheet()
                 {

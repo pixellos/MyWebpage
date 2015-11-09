@@ -9,13 +9,12 @@ namespace MyWebpage.Controllers
 {
     public class ProjectController : Controller
     {
-        
         public ProjectController(IProjects projectsRepository)
         {
             _projectsRepository = projectsRepository;
         }
 
-        IProjects _projectsRepository;
+        private IProjects _projectsRepository;
 
         public PartialViewResult ProjectsCarouselViewResult()
         {

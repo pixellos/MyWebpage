@@ -35,7 +35,7 @@ namespace MyWebpage.Infrastructure
             var dbConnectionHandler = new DataBaseConnectionRepositoriesSingleton();
             this.kernel.Bind<IUsers>().To<UserRepository>();
             this.kernel.Bind<IArticles>().ToConstant(Constats.ArticlesModel);
-            this.kernel.Bind<IProjects>().ToConstant((IProjects)dbConnectionHandler);
+            this.kernel.Bind<IProjects>().ToConstant((IProjects) dbConnectionHandler);
             this.kernel.Bind<IBlogPost>().To<BlogPost>();
             this.kernel.Bind<IBlogPosts>().To<BlogPostRepository>();
             this.kernel.Bind<IProject>().To<Project>();

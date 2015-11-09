@@ -12,9 +12,9 @@ namespace MyWebpage.Controllers
 {
     public class CmsController : Controller
     {
-        IArticles _articlesRepo;
-        IProjects _projectsRepo;
-        IProject _projectRepo;
+        private IArticles _articlesRepo;
+        private IProjects _projectsRepo;
+        private IProject _projectRepo;
         private IUsers _usersRepo;
 
         public CmsController(IArticles iArticles, IProjects iProjects, IProject iProject, IUsers iUsers)
@@ -32,7 +32,6 @@ namespace MyWebpage.Controllers
 
         public ViewResult LoginAccepted()
         {
-
             return View();
         }
 
@@ -41,9 +40,9 @@ namespace MyWebpage.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_usersRepo.IsPasswordOfUserVaild(model.UserName,model.Password))
+                if (_usersRepo.IsPasswordOfUserVaild(model.UserName, model.Password))
                 {
-                    return View("Index",null);
+                    return View("Index", null);
                 }
             }
             return PartialView();
@@ -52,42 +51,68 @@ namespace MyWebpage.Controllers
         [HttpPost]
         public ViewResult ProjectManager()
         {
-            return View(_projectsRepo);     
+            return View(_projectsRepo);
         }
-        
+
         [HttpPost]
         public ActionResult RemoveProjectHelper(string id)
         {
             _projectsRepo.RemoveById(id);
-            return View("ProjectManager",_projectsRepo);
+            return PartialView("Results/OK");
         }
 
         [HttpPost]
         public ActionResult ModifyProjectHelper(string id)
         {
             IProject project = _projectsRepo.ProjectsList.Single(x => x.Id == id);
-            return View("Helper/ModifyHelper", project);
+            return PartialView("Helper/ModifyHelper", project);
         }
 
         [HttpPost]
         public ActionResult FinishProjectModify(Project model)
         {
-            if (_projectsRepo.ProjectsList.SingleOrDefault(x=>x.Id == model.Id && x.Name == model.Name) != null)
+            if (_projectsRepo.ProjectsList.SingleOrDefault(x => x.Id == model.Id && x.Name == model.Name) != null)
             {
                 _projectsRepo.RemoveById(model.Id);
+                _projectsRepo.Add(model);
+                return PartialView("Results/OK");
             }
-            _projectsRepo.Add(model);
-            return View("ProjectManager",_projectsRepo);
+            
+            return PartialView("Results/Error");
         }
-       
+
         [HttpPost]
-        public ActionResult AddProjectHelper(ProjectViewModel model = null)
+        public ActionResult FinishProjectHelper(ProjectViewModel model = null)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return PartialView("Results/Error");
+
+            try
             {
-                _projectsRepo.Add(new Project() { Id = model.Id, Name = model.Name, Article = model.Article, GitHubLink = model.GitHubLink, PhotoAdress = model.PhotoAdress });
+                _projectsRepo.Add(new Project()
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Article = model.Article,
+                    GitHubLink = model.GitHubLink,
+                    PhotoAdress = model.PhotoAdress
+                });
             }
-            return View("Helper/AddHelper",_projectRepo as IProjects);
+
+            catch (Exception)
+            {
+                return PartialView("Results/Error");
+            }
+            return PartialView("Results/OK");
+        }
+
+
+
+        [HttpPost]
+        public ActionResult AddProjectHelper()
+        {
+
+            return View("Helper/AddHelper");
+
         }
 
         [HttpPost]
@@ -102,8 +127,10 @@ namespace MyWebpage.Controllers
             if (ModelState.IsValid)
             {
                 (_projectsRepo).RemoveByName(model.Name);
+                return PartialView("Results/OK");
             }
-            return View(_projectRepo);
+
+            return PartialView("Results/Error");
         }
 
         public ActionResult ArticlesManager()

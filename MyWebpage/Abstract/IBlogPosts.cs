@@ -9,9 +9,7 @@ namespace MyWebpage.Abstract
 {
     public interface IBlogPosts
     {
-       List<IBlogPost> BlogPosts { get; set; }
+        List<IBlogPost> BlogPosts { get; set; }
         void RemoveById(int id);
     }
-
-   
 }

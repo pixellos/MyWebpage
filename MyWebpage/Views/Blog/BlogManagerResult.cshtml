@@ -1,34 +1,34 @@
 ﻿@model MyWebpage.Abstract.IBlogPosts
-    @{
-        Layout = "~/Views/Shared/_CMSLayout.cshtml";
-    }
+@{
+    Layout = "~/Views/Shared/_CMSLayout.cshtml";
+}
 
 <div class="container">
-    <br />
+    <br/>
     @foreach (var blog in Model.BlogPosts)
     {
-        <br />
-            <div class="container">
-                <p class="col-lg-4">
-                    <b>
-                        @blog.Header
-                    </b>
-                    @blog.Content
-                </p>
-                <img src="@blog.PhotoAdress" class="img-responsive col-lg-6" />
+        <br/>
+        <div class="container">
+            <p class="col-lg-4">
+                <b>
+                    @blog.Header
+                </b>
+                @blog.Content
+            </p>
+            <img src="@blog.PhotoAdress" class="img-responsive col-lg-6"/>
 
-                <div class="col-lg-2">
-                    @using (Html.BeginForm("RemoveBlogHelperResult", "Blog"))
-                    {
-                        @Html.Hidden("id", blog.Id)
-                        <input class="btn btn-danger" type="submit" value="Usuń @blog.Header" />
-                    }
-                    @using (Html.BeginForm("ModifyBlogHelpeResult", "Blog"))
+            <div class="col-lg-2">
+                @using (Html.BeginForm("RemoveBlogHelperResult", "Blog"))
                 {
-                        @Html.Hidden("id", blog.Id)
-                        <input class="btn btn-danger" type="submit" value="Modyfikuj @blog.Header" />
-                    }
-                </div>
+                    @Html.Hidden("id", blog.Id)
+                    <input class="btn btn-danger" type="submit" value="Usuń @blog.Header"/>
+                }
+                @using (Html.BeginForm("ModifyBlogHelpeResult", "Blog"))
+                {
+                    @Html.Hidden("id", blog.Id)
+                    <input class="btn btn-danger" type="submit" value="Modyfikuj @blog.Header"/>
+                }
             </div>
+        </div>
     }
 </div>

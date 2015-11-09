@@ -12,12 +12,12 @@ namespace MyWebpage
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
-                        
+            routes.IgnoreRoute("robots.txt");
             routes.MapRoute(
                 name: "Default",
-               url:"",
-                defaults: new { controller = "Main",  action = "Index"});
+                url: "",
+                defaults: new {controller = "Main", action = "Index"});
+         
             routes.MapRoute(
                 name: "Droids",
                 url: "Droid",
@@ -26,8 +26,8 @@ namespace MyWebpage
             routes.MapRoute(
                 name: "Actions",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional }
-            );
+                defaults: new {controller = "Article", action = "Index", id = UrlParameter.Optional}
+                );
         }
     }
 }

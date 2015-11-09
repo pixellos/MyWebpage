@@ -6,6 +6,7 @@ namespace MyWebpage.Abstract
     {
         [Key]
         int Id { get; set; }
+
         string Headline { get; set; }
         string Description { get; set; }
         string PhotoShowAdress { get; set; }

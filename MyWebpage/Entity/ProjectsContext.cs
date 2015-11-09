@@ -13,15 +13,15 @@ using System.Web;
 
 namespace MyWebpage.Entity
 {
-    public class ProjectContext :DbContext
+    public class ProjectContext : DbContext
     {
-
         public ProjectContext() : base(
             @"Data Source=SQL5011.Smarterasp.net;Initial Catalog=DB_9D8EA4_towebpage;User Id=DB_9D8EA4_towebpage_admin;Password=DATA123456;"
+            )
+            //"Server = tcp:lv9kyjkui8.database.windows.net, 1433; Database=MyWebpageDataBase;User ID = SQLDatabase@lv9kyjkui8;Password=Test123456; Trusted_Connection=False;Encrypt=True;Connection Timeout = 30;")
+        {
+        }
 
-        )
-        //"Server = tcp:lv9kyjkui8.database.windows.net, 1433; Database=MyWebpageDataBase;User ID = SQLDatabase@lv9kyjkui8;Password=Test123456; Trusted_Connection=False;Encrypt=True;Connection Timeout = 30;")
-        { }
         public DbSet<Project> Projects { get; set; }
     }
 
@@ -33,7 +33,7 @@ namespace MyWebpage.Entity
             {
                 using (ProjectContext connection = new ProjectContext())
                 {
-                        connection.Projects.Add(project as Project);
+                    connection.Projects.Add(project as Project);
                     try
                     {
                         connection.SaveChanges();
@@ -60,13 +60,14 @@ namespace MyWebpage.Entity
             using (ProjectContext connection = new ProjectContext())
             {
                 var toremove = connection.Projects.SingleOrDefault(x => x.Name == name);
-                if (toremove !=null)
+                if (toremove != null)
                 {
                     connection.Projects.Remove(toremove);
                 }
                 connection.SaveChanges();
             }
         }
+
         public List<IProject> ProjectsList
         {
             get
@@ -77,9 +78,7 @@ namespace MyWebpage.Entity
                     return toReturn;
                 }
             }
-            set
-            {
-            }
+            set { }
         }
     }
 }

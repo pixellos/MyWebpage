@@ -1,0 +1,2 @@
+User-agent: http://popielarzmatthew.azurewebsites.net/
+Disallow: http://popielarzmatthew.azurewebsites.net/CMS/

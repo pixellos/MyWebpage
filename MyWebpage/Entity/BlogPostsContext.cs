@@ -15,12 +15,13 @@ namespace MyWebpage.Entity
         public BlogPostsContext() : base(Constats.BlogPostsConnectionString)
         {
         }
-        public DbSet<BlogPost> BlogPosts { get; set; }  
+
+        public DbSet<BlogPost> BlogPosts { get; set; }
     }
 
     public class BlogPostRepository : IBlogPosts
     {
-        public  virtual List<IBlogPost> BlogPosts
+        public virtual List<IBlogPost> BlogPosts
         {
             get
             {
@@ -38,7 +39,7 @@ namespace MyWebpage.Entity
                     {
                         foreach (var thing in value)
                         {
-                            blogContext.BlogPosts.AddOrUpdate((BlogPost)thing);
+                            blogContext.BlogPosts.AddOrUpdate((BlogPost) thing);
                         }
                         blogContext.SaveChanges();
                     }

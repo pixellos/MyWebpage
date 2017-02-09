@@ -1,0 +1,108 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<RoadToCode.Module.Blog.DAL.MainBlogPageViewModel>
+
+@{
+    Layout = "Shared/_LayoutWithHighlightjs";
+}
+
+
+<div class="row">
+    <div class="medium-5 columns">
+        <div class="overlay-container">
+            <a href="~/Project/">
+                <img data-interchange="[http://image.flaticon.com/icons/svg/176/176857.svg, (default)]" src="http://image.flaticon.com/icons/svg/176/176857.svg">
+                <a class="overlay">Moje Projekty</a>
+            </a>
+        </div>
+    </div>
+    <div class="row" data-equalizer>
+        <div class="medium-3 columns">
+
+            <div class="overlay-container">
+                <a href="https://drive.google.com/file/d/0Bw2D3zF-UE5WTTB2OFRyb3Vfam8/view?usp=sharing">
+                    <img data-interchange="[http://image.flaticon.com/icons/svg/36/36049.svg, (default)]" src="http://image.flaticon.com/icons/svg/36/36049.svg" data-equalizer-watch>
+                </a>
+            </div>
+            <div class="overlay-container" data-equalizer-watch="bar">
+                <a href="~/@Model.HighlightedPosts[0].GetLink">
+                    <img data-interchange="[@Model.HighlightedPosts[0].ImageUrl, (default)]" src="@Model.HighlightedPosts[0].ImageUrl" data-equalizer-watch>
+                    <a class="">@Html.Raw(Model.HighlightedPosts[0].Title)</a>
+                </a>
+            </div>
+        </div>
+
+        <div class="medium-3 columns">
+
+            <div class="overlay-container" data-equalizer-watch="bar">
+                <a href="~/@Model.HighlightedPosts[1].GetLink">
+                    <img data-interchange="[@Model.HighlightedPosts[1].ImageUrl, (default)]" src="@Model.HighlightedPosts[1].ImageUrl" data-equalizer-watch>
+                    <a class="overlay">@Html.Raw(Model.HighlightedPosts[1].Title)</a>
+                </a>
+            </div>
+            <div class="overlay-container" data-equalizer-watch="bar">
+                <a href="~/@Model.HighlightedPosts[2].GetLink">
+                    <img data-interchange="[@Model.HighlightedPosts[2].ImageUrl, (default)]" src="@Model.HighlightedPosts[2].ImageUrl" data-equalizer-watch>
+                    <a class="overlay">@Html.Raw(Model.HighlightedPosts[2].Title)</a>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row column">
+    <h4 style="margin: 0;" class="text-center">OSTATNIE</h4>
+    <small>
+        @foreach (var category in @Model.Categories)
+        {
+            <a href="~/Category/@category">@category,</a>
+        }
+    </small>
+</div>
+<hr>
+<div class="row">
+    <div class="large-8 columns" style="border-right: 1px solid #E3E5E8;">
+        <article>
+            @{
+                foreach (var x in Model.ShowedPosts)
+                {
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <p>
+                            </p>
+                            <h5>
+                                <a href="@x.GetLink">@Html.Raw(x.Title)</a>
+                            </h5>
+                            <p>
+                                @Html.Raw(x.Content)
+                            </p>
+                        </div>
+                    </div>
+                    <hr/>
+                }
+            }
+        </article>
+    </div>
+    <div class="large-4 columns">
+        <aside>
+
+            <br>
+            <div class="row column">
+                <p class="lead">Wszystkie posty</p>
+                @foreach (var x in Model.AllPosts)
+                {
+                    <a href="~/@x.GetLink">
+                        <div class="overlay-container">
+
+                            <img data-interchange="[@x.ImageUrl, (default)]" src="@x.ImageUrl">
+                            <h3 class="overlay">@Html.Raw(x.Title)</h3>
+                        </div>
+                        <div class="media-object-section">
+                            <h5></h5>
+                        </div>
+                    </a>
+                    <hr/>
+                }
+
+            </div>
+        </aside>
+    </div>
+</div>

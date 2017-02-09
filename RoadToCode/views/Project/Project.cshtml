@@ -1,0 +1,83 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<System.Collections.Generic.List<RoadToCode.Module.Projects.DAL.Project>>
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.css">
+</head>
+<body>
+<div class="off-canvas-wrapper">
+    <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+        <div class="off-canvas position-left reveal-for-large" id="my-info" data-off-canvas data-position="left">
+            <div class="row column">
+                <br>
+                <h5>Mateusz Popielarz</h5>
+                <p>
+                    C# dev.<br/>
+                    Secondary Technical School of Electrical Engineering student. Programmers-hothead.<br/>
+                    I'm really keen on: <br/>
+                    Programming<br/>
+                    Books (especially fantasty)<br/>
+                    Music - (I really love Rock - Nomy <3)<br/>
+                    Guitar playing<br/>
+                    <br/>
+                    My projects sources are here:
+                    <a href="https://github.com/pixellos">GitHub</a>
+
+                </p>
+            </div>
+        </div>
+        <div class="off-canvas-content" data-off-canvas-content>
+            <div class="title-bar hide-for-large">
+                <div class="title-bar-left">
+                    <button class="menu-icon" type="button" data-open="my-info"></button>
+                </div>
+            </div>
+            <div class="callout primary" style="background: url(http://i.imgur.com/LmuvOrt.jpg) no-repeat; background-position: 70% 80%;">
+                <div class="row column">
+                    <div class="text-center">
+                        <br/>
+                        <br/><h1 class="subheader">Projects</h1>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="row small-up-3 medium-up-4 large-up-4">
+                @foreach (var x in Model)
+                {
+                    <div class="column">
+                        <a href="#" data-open="@x.Title.Replace(" ", String.Empty)">
+                            <img src="@x.ImageUrl">
+                            <h5>@x.Title</h5>
+                        </a>
+                    </div>
+                    <div id="@x.Title.Replace(" ", String.Empty)" class="reveal" data-reveal>
+                        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+                        <h2 id="modalTitle">@x.Title</h2>
+                        <img src="@x.ImageUrl">
+
+                        @Html.Raw(x.HtmlContent)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/plugins/foundation.reveal.js"></script>
+<script>
+    $(document).foundation();
+    $(document).foundation('reveal', 'reflow');
+</script>
+<script type="text/javascript" src="https://intercom.zurb.com/scripts/zcom.js"></script>
+</body>
+</html>

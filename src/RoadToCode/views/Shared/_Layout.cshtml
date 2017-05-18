@@ -1,0 +1,45 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/materialize/bin/materialize.js"></script>
+        <script src="~/lib/showdown/dist/showdown.js"></script>
+        <link rel="stylesheet" href="~/lib/materialize/bin/materialize.css" />
+    </environment>
+    <environment names="Staging,Production">
+         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk"></script>
+    </environment>
+    <nav class="blue-grey darken-1">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Programming blog</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <a href="CV.html" title="CV" class="medium material-icons">assignment_ind</a>
+                </li>
+                <li>
+                    <a href="projects.html"  class="medium material-icons" title="Projects">view_module</a>
+                </li> 
+                <li>
+                    <a href="projects.html" class="medium material-icons" title="Blog">view_stream</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    @RenderBody()
+    
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

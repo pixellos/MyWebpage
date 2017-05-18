@@ -1,8 +1,8 @@
-﻿@using RoadToCode.Models.Blog
+@using RoadToCode.Models.Blog
 @model CreatePostViewModel
 
-<div class="container">
-    <div class="card-panel hoverable">
+<div class="card-panel hoverable">
+    <div class="card-panel flex-text">
         <div class="card-panel">
             <div class="row">
                 <div class="col s4 img-responsive">
@@ -12,10 +12,8 @@
                 <h6 class="col s3">przez <a href="#">Pixela</a> <small>@Model.DateTime</small></h6>
             </div>
         </div>
-        <div class="card-panel hoverable flow-text">
-            <markdown>
+        <div class="markdown">
 @Model.Content
-            </markdown>
         </div>
     </div>
 </div>

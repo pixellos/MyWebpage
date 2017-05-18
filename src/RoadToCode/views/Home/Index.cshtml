@@ -1,0 +1,54 @@
+﻿<link href="~/css/prism.css" rel="stylesheet" />
+<div id="sheet" class="container">
+    <div id="about">
+    </div>
+</div>
+<script src="~/js/prism.js"  data-manual></script>
+<script>
+    (function () {
+        let firstFireId = "init";
+        let markdownConverter = new showdown.Converter();
+        let sheetDiv = $("#sheet");
+        let lastSheetSelector = '#sheet >:last-child';
+        var scrollFireOptions = [];
+        function beautify(element)
+        {
+            element.find("p").addClass("flex-text truncate");
+            element.find(".markdown").each(function(){
+                let input = $(this).text();
+                let markdowned = markdownConverter.makeHtml(input);
+                debugger
+                $(this).html(markdowned);
+            });
+            element.find("pre > code").each(function(){
+                var result = Prism.highlightElement($(this).parent()[0]);
+                $(this).parent().html(result);
+            });
+            return element;
+        };
+        function fetchPost(i) {
+            if (!$.isNumeric(i)) {
+                throw `${i} is not a number!`;
+            }
+            function onData(html, status, jqxhr) {
+                if (status == 'success')
+                {
+                    let post =`<div id="post${i}">${html}</div>`;
+                    var input = $($.parseHTML(post, null, false));
+                    var div = sheetDiv.append(beautify($(input)));
+                    console.log(div);
+                    scrollFireOptions.push({
+                    selector: lastSheetSelector,
+                    offset: 0,
+                    callback: function fetchNext() {
+                        fetchPost(i + 1)
+                    }});
+                    Materialize.scrollFire(scrollFireOptions);
+                }
+            };
+            $.get(window.location.href + `Blog/Post/${i}/true`)
+                .done(onData);
+        }
+        fetchPost(0);
+    })();
+</script>

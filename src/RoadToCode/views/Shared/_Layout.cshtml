@@ -5,12 +5,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/materialize/bin/materialize.js"></script>
         <script src="~/lib/showdown/dist/showdown.js"></script>
+        <script src="~/userlib/hljs/highlight.pack.js"></script>
+        <script src="~/js/beautifiers.js"></script>
+        <script src="~/js/razorHljs.js"></script>
+        <link rel="stylesheet" href="~/userlib/hljs/styles/vs.css">
         <link rel="stylesheet" href="~/lib/materialize/bin/materialize.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     </environment>
     <environment names="Staging,Production">
          <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -19,18 +23,18 @@
                 crossorigin="anonymous"
                 integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk"></script>
     </environment>
-    <nav class="blue-grey darken-1">
+    <nav class="blue-grey darken-2">
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Programming blog</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a href="\" class="brand-logo">Programming blog</a>
+            <ul class="right hide-on-small-only">
                 <li>
-                    <a href="CV.html" title="CV" class="medium material-icons">assignment_ind</a>
+                    <a href="/About" class="material-icons" title="About">assignment_ind</a>
                 </li>
                 <li>
-                    <a href="projects.html"  class="medium material-icons" title="Projects">view_module</a>
+                    <a href="projects.html"  class="material-icons" title="Projects">view_module</a>
                 </li> 
                 <li>
-                    <a href="projects.html" class="medium material-icons" title="Blog">view_stream</a>
+                    <a href="projects.html" class="material-icons" title="Blog">view_stream</a>
                 </li>
             </ul>
         </div>

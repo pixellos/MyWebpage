@@ -9,6 +9,5 @@ namespace RoadToCode.Services.Blog
     {
         Result Add(Post post);
         Result Edit(Post post);
-        IEnumerable<Post> Paged(int page, int postsPerPage);
     }
 }

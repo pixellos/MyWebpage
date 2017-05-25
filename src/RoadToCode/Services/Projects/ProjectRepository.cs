@@ -4,9 +4,9 @@ using RoadToCode.Models;
 
 namespace RoadToCode.Services.Projects
 {
-    public class ProjectRepository : Repository<Project, string>
+    public class ProjectRepository : Repository<Project>
     {
-        public ProjectRepository(string connectionString) : base(connectionString, x => x.Title)
+        public ProjectRepository(string connectionString) : base(connectionString)
         {
         }
     }

@@ -10,43 +10,41 @@ using RoadToCode.Services.Blog;
 
 namespace RoadToCode.Models
 {
-    public class Repository<T, TFakeKey> : IEnumerable<T>, IDisposable
+    public class Repository<T> : IEnumerable<T>, IDisposable
         where T : IDatabaseModel
     {
         protected LiteDatabase Database { get; }
-        protected Func< T, TFakeKey> FakeKeySelector { get; }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="fakeKeySelector"> Key to use in edit and add comparing</param>
-        public Repository(string databasePath, Func< T, TFakeKey> fakeKeySelector)
+        public Repository(string databasePath)
         {
             this.Database = new LiteDatabase(databasePath);
-            this.FakeKeySelector = fakeKeySelector;
         }
 
         protected LiteCollection<T> Collection => this.Database.GetCollection<T>();
 
-        public Result Add(T value)
+        protected Result Add(T value, DateTime addTime)
         {
             if (value == null)
             {
                 return new ArgumentError<T>(value, "NotNull");
             }
-            if (this.Any(x => this.FakeKeySelector(x).Equals(this.FakeKeySelector(value))))
+            if (this.Any(x => x.Id == value.Id))
             {
-                return new Exist<T>(value, "Exist");
+                return new Exist<T>(value, "You're trying to add existing entry.");
             }
             using (var trans = this.Database.BeginTrans())
             {
                 value.Id = Guid.NewGuid().ToString();
-                value.Updated = new List<DateTime>();
-                value.Updated.Add(DateTime.Now);
+                value.Added = addTime;
                 this.Collection.Insert(value);
                 trans.Commit();
             }
             return new Succedeed();
+        }
+
+        public Result Add(T value)
+        {
+            return this.Add(value, DateTime.Now);
         }
 
         public void Delete(Expression<Func<T, bool>> selector)
@@ -71,7 +69,7 @@ namespace RoadToCode.Models
 
         public IEnumerator<T> GetEnumerator()
         {
-            return this.Collection.FindAll().OrderBy(x => x.Updated.Last()).GetEnumerator();
+            return this.Collection.Find(x => x.State == ModelState.Ok).OrderBy(x => x.Added).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

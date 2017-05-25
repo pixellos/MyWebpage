@@ -11,6 +11,6 @@ namespace RoadToCode.Services.Projects
         public string HtmlContent { get; set; }
         public ModelState State { get; set; }
         public string Id { get; set; }
-        public IList<DateTime> Updated { get; set; }
+        public DateTime Added { get; set; }
     }
 }

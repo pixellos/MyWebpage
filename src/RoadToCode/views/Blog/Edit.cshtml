@@ -11,6 +11,7 @@
             </div>
         }
         <form class="form-horizontal" method="POST" action="~/Blog/@(ViewData["ReturnAction"])">
+            @Html.HiddenFor(t=> t.Id)
             <div class="control-group">
                 <div class="controls">
                     <input type="text" data-val="true" name="Title" id="Title" value="@Html.Raw(Model.Title)" placeholder="Title">
@@ -23,9 +24,7 @@
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <textarea name="Content" data-val="true" id="Content" placeholder="Title">
-                        @Html.Raw(Model.Content)
-                    </textarea>
+                    <textarea name="Content" data-val="true" id="Content" placeholder="Title"> @Model.Content </textarea>
                 </div>
             </div>
             <div class="row">
@@ -43,7 +42,7 @@
                 <div class="control-group col s2 offset-s6 offset-m7 offset-l8">
                     <div class="controls">
                         <button type="submit" class="btn">
-                            Change
+                            Save Changes
                         </button>
                     </div>
                 </div>

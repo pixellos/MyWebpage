@@ -48,3 +48,8 @@ textarea {
         display: none;
     }
 }
+
+.razor .hljs-start {
+    background-color: yellow;
+    color: black;
+}

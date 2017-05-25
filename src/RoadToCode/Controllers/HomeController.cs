@@ -13,6 +13,8 @@ namespace RoadToCode.Controllers
             return View();
         }
 
+        [Route("About")]
+        [HttpGet]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -21,8 +23,6 @@ namespace RoadToCode.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 

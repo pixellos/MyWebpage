@@ -18,7 +18,7 @@ namespace RoadToCode.Controllers
         }
 
 
-        [Route("{count:int:min(0)}")]
+        [Route("{count:int:min(0)}/Edit")]
         [Authorize]
         public IActionResult Edit(int count)
         {
@@ -44,9 +44,14 @@ namespace RoadToCode.Controllers
             {
                 return this.View("Succeeded");
             }
+            else if (result is Error error)
+            {
+                ModelState.AddModelError(error.GetHashCode().ToString(), error.Message);
+                return this.View(cp);
+            }
             else
             {
-                return this.BadRequest();
+                throw new InvalidOperationException();
             }
         }
 
@@ -81,6 +86,22 @@ namespace RoadToCode.Controllers
         }
 
         [HttpGet]
+        [Route("{title}")]
+        public IActionResult Post(string title)
+        {
+            var post = this.Posts.FirstOrDefault(x => NormalizationProvider.Normalize(x.Title) == title);
+            if (post != null)
+            {
+                var postVm = CreatePostViewModel.FromPost(post);
+                return this.View("StandalonePost", postVm);
+            }
+            else
+            {
+                return this.BadRequest("Error");
+            }
+        }
+
+        [HttpGet]
         [Route("{count:int:min(0)}/{partial:bool}")]
         [Route("{count:int:min(0)}")]
         public IActionResult Post(int count, bool partial = false)
@@ -91,11 +112,11 @@ namespace RoadToCode.Controllers
                 var postvm = CreatePostViewModel.FromPost(post);
                 if (partial)
                 {
-                    return this.PartialView("PartialPost", postvm);
+                    return this.PartialView(postvm);
                 }
                 else
                 {
-                    return this.View(postvm);
+                    return this.View("StandalonePost", postvm);
                 }
             }
             else

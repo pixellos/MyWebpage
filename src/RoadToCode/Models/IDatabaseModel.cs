@@ -6,7 +6,7 @@ namespace RoadToCode.Models
     public interface IDatabaseModel
     {
         string Id { get; set; }
-        IList<DateTime> Updated { get; set; }
+        DateTime Added { get; set; }
         ModelState State{ get; set; }
     }
 }

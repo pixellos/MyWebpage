@@ -1,6 +1,6 @@
 namespace RoadToCode.Models.Results
 {
-    public class Error<T> : Error
+    public class Error<T> : Result<T>, IError<T> ,IError
     {
         public new T Value => (T)base.Value;
 
@@ -13,23 +13,18 @@ namespace RoadToCode.Models.Results
         }
     }
 
-    public class Error : Result
+    public class Error : Result, IError
     {
-        public string Message { get; }
-        public object Value { get; }
-
         public Error()
         {
         }
-
-        public Error(object value, string message)
+        
+        public Error(object value) : this(value, string.Empty)
         {
-            this.Value = value;
-            this.Message = message;
         }
-        public Error(string message)
+
+        public Error(object value, string msg) : base(value, msg)
         {
-            this.Message = message;
         }
     }
 }

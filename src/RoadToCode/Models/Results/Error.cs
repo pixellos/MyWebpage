@@ -1,29 +1,5 @@
 namespace RoadToCode.Models.Results
 {
-    public class Exist<T> : Error<T>
-    {
-        public Exist(T t) : this(t, string.Empty)
-        {
-        }
-
-        public Exist(T t, string msg) : base(t, msg)
-        {
-
-        }
-    }
-
-    public class ArgumentError<T> : Error<T>
-    {
-        public ArgumentError(T t) : this(t, string.Empty)
-        {
-        }
-
-        public ArgumentError(T t, string msg) : base(t, msg)
-        {
-
-        }
-    }
-
     public class Error<T> : Error
     {
         public new T Value => (T)base.Value;
@@ -36,11 +12,12 @@ namespace RoadToCode.Models.Results
         {
         }
     }
+
     public class Error : Result
     {
         public string Message { get; }
-        public object Value {get;}
-        
+        public object Value { get; }
+
         public Error()
         {
         }

@@ -13,6 +13,7 @@ namespace RoadToCode.Models
     public class Repository<T> : IEnumerable<T>, IDisposable
         where T : IDatabaseModel
     {
+        protected LiteCollection<T> Collection => this.Database.GetCollection<T>();
         protected LiteDatabase Database { get; }
 
         public Repository(string databasePath)
@@ -20,7 +21,6 @@ namespace RoadToCode.Models
             this.Database = new LiteDatabase(databasePath);
         }
 
-        protected LiteCollection<T> Collection => this.Database.GetCollection<T>();
 
         protected Result Add(T value, DateTime addTime)
         {

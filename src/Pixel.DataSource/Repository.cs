@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using LiteDB;
-using RoadToCode.Models;
-using RoadToCode.Models.Results;
-using RoadToCode.Services.Blog;
+using Pixel.Results;
 
-namespace RoadToCode.Models
+namespace Pixel.DataSource
 {
     public class Repository<T> : IEnumerable<T>, IDisposable
         where T : IDatabaseModel
@@ -21,8 +19,7 @@ namespace RoadToCode.Models
             this.Database = new LiteDatabase(databasePath);
         }
 
-
-        protected Result Add(T value, DateTime addTime)
+        protected IResult Add(T value, DateTime addTime)
         {
             if (value == null)
             {
@@ -39,24 +36,50 @@ namespace RoadToCode.Models
                 this.Collection.Insert(value);
                 trans.Commit();
             }
-            return new Succedeed();
+            return new Succeeded();
         }
 
-        public Result Add(T value)
+        public IResult Add(T value)
         {
             return this.Add(value, DateTime.Now);
         }
 
-        public void Delete(Expression<Func<T, bool>> selector)
+        public IResult Edit(T value)
         {
+            var items = this.Where(x => x.Id == value.Id);
+            if (!items.Any())
+            {
+                return new NotFound<T>(value);
+            }
             using (var trans = this.Database.BeginTrans())
             {
-                var items = this.Collection.Find(selector).Where(x => x.State == ModelState.Ok);
+                foreach (var item in items)
+                {
+                    item.State = ModelState.Updated;
+                    this.Collection.Update(item);
+                }
+                var result = this.Add(value);
+                trans.Commit();
+                return result;
+            }
+        }
+
+        public IResult Hide(T value)
+        {
+            var items = this.Where(x => x.Id == value.Id);
+            if (!items.Any())
+            {
+                return new NotFound<T>(value, "Not found");
+            }
+            using (var trans = this.Database.BeginTrans())
+            {
                 foreach (var item in items)
                 {
                     item.State = ModelState.Deleted;
+                    this.Collection.Update(item);
                 }
                 trans.Commit();
+                return new Succeeded();
             }
         }
 

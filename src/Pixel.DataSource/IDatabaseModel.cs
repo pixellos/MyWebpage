@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace RoadToCode.Models
+namespace Pixel.DataSource
 {
     public interface IDatabaseModel
     {

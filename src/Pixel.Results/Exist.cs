@@ -1,4 +1,4 @@
-namespace RoadToCode.Models.Results
+namespace Pixel.Results
 {
     public class Exist<T> : Error<T>
     {

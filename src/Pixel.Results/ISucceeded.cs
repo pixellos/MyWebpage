@@ -1,4 +1,4 @@
-namespace RoadToCode.Models.Results
+namespace Pixel.Results
 {
     public interface ISucceeded<T> : ISucceeded
     {

@@ -1,7 +1,12 @@
-namespace RoadToCode.Models.Results
+namespace Pixel.Results
 {
     public class Succeeded<T> : Result<T>, ISucceeded<T>
     {
+        public static implicit operator T(Succeeded<T> succeeded)
+        {
+            return succeeded.Value;
+        }
+
         public Succeeded(T t) : base(t, string.Empty)
         {
         }
@@ -13,6 +18,10 @@ namespace RoadToCode.Models.Results
 
     public class Succeeded : Result, ISucceeded
     {
+        public Succeeded()
+        {
+        }
+
         public Succeeded(object value) : base(value, string.Empty)
         {
         }

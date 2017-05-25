@@ -1,6 +1,6 @@
-namespace RoadToCode.Models.Results
+namespace Pixel.Results
 {
-    public class Error<T> : Result<T>, IError<T> ,IError
+    public class Error<T> : Result<T>, IError<T>, IError
     {
         public new T Value => (T)base.Value;
 

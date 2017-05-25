@@ -22,7 +22,7 @@ namespace RoadToCode.Controllers
         public IActionResult Post(string title)
         {
             var result = this.Posts.NewestByTitle(title);
-            if (result is Succedeed<Post> post)
+            if (result is Succeeded<Post> post)
             {
                 var postVm = CreatePostViewModel.FromPost(post);
                 return this.View("StandalonePost", postVm);
@@ -67,7 +67,7 @@ namespace RoadToCode.Controllers
         public IActionResult Remove(string title)
         {
             var result = this.Posts.NewestByTitle(title);
-            if (result is Succedeed<Post> post)
+            if (result is Succeeded<Post> post)
             {
                 var postvm = CreatePostViewModel.FromPost(post);
                 this.ViewData["ReturnAction"] = nameof(Remove);
@@ -88,7 +88,7 @@ namespace RoadToCode.Controllers
         public IActionResult Remove(Post post)
         {
             var result = this.Posts.Hide(post);
-            if (result is ISuccedeed removed)
+            if (result is ISucceeded removed)
             {
                 return this.View("Succeeded");
             }
@@ -108,7 +108,7 @@ namespace RoadToCode.Controllers
         public IActionResult Edit(string title)
         {
             var result = this.Posts.NewestByTitle(title);
-            if (result is Succedeed<Post> post)
+            if (result is Succeeded<Post> post)
             {
                 var postvm = CreatePostViewModel.FromPost(post);
                 this.ViewData["ReturnAction"] = nameof(Edit);
@@ -146,7 +146,7 @@ namespace RoadToCode.Controllers
         public IActionResult Edit(CreatePostViewModel cp)
         {
             var result = this.Posts.Edit(cp.ToPost());
-            if (result is Succedeed)
+            if (result is ISucceeded)
             {
                 return this.View("Succeeded");
             }
@@ -181,7 +181,7 @@ namespace RoadToCode.Controllers
         public IActionResult Publish(CreatePostViewModel cp)
         {
             var result = this.Posts.Add(cp.ToPost());
-            if (result is Succedeed)
+            if (result is Succeeded)
             {
                 return this.View("Succeeded");
             }

@@ -1,4 +1,4 @@
-namespace RoadToCode.Models.Results
+namespace Pixel.Results
 {
     public class ArgumentError<T> : Error<T>
     {

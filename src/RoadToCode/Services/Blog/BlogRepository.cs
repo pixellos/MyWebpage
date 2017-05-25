@@ -5,6 +5,7 @@ using System.Linq;
 using RoadToCode.Models;
 using RoadToCode.Models.Blog;
 using Pixel.Results;
+using Pixel.DataSource;
 
 namespace RoadToCode.Services.Blog
 {
@@ -18,7 +19,7 @@ namespace RoadToCode.Services.Blog
         public IResult<Post> NewestByTitle(string title)
         {
             var post = this.LastOrDefault(x => NormalizationProvider.Normalize(x.Title) == title);
-            var result = post != null ? (IResult<Post>)new Succedeed<Post>(post) : new NotFound<Post>(post);
+            var result = post != null ? (IResult<Post>)new Succeeded<Post>(post) : new NotFound<Post>(post);
             return result;
         }
 
@@ -31,6 +32,12 @@ namespace RoadToCode.Services.Blog
         public IEnumerable<Post> GetPostsFromCategory(string category)
         {
             return this.Collection.Find(x => x.Category.Contains(category));
+        }
+    
+
+        public IResult Edit(Post post)
+        {
+            throw new NotImplementedException();
         }
     }
 }

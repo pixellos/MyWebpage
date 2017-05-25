@@ -4,7 +4,7 @@ using RoadToCode.Services.Blog;
 using Microsoft.AspNetCore.Authorization;
 using RoadToCode.Models.Blog;
 using System;
-using RoadToCode.Models.Results;
+using Pixel.Results;
 
 namespace RoadToCode.Controllers
 {
@@ -17,6 +17,112 @@ namespace RoadToCode.Controllers
             this.Posts = postProvider;
         }
 
+        [HttpGet]
+        [Route("{title}")]
+        public IActionResult Post(string title)
+        {
+            var result = this.Posts.NewestByTitle(title);
+            if (result is Succedeed<Post> post)
+            {
+                var postVm = CreatePostViewModel.FromPost(post);
+                return this.View("StandalonePost", postVm);
+            }
+            else if (result is IResult res)
+            {
+                return this.View("Error", res?.ToString() ?? string.Empty);
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+
+        [HttpGet]
+        [Route("{count:int:min(0)}/{partial:bool}")]
+        [Route("{count:int:min(0)}")]
+        public IActionResult Post(int count, bool partial = false)
+        {
+            var post = this.Posts.Skip(count).FirstOrDefault();
+            if (post != null)
+            {
+                var postvm = CreatePostViewModel.FromPost(post);
+                if (partial)
+                {
+                    return this.PartialView(postvm);
+                }
+                else
+                {
+                    return this.View("StandalonePost", postvm);
+                }
+            }
+            else
+            {
+                return this.NoContent();
+            }
+        }
+
+        [Route("/[controller]/Post/{title}/Remove")]
+        [Route("/[controller]/Remove/{title}")]
+        public IActionResult Remove(string title)
+        {
+            var result = this.Posts.NewestByTitle(title);
+            if (result is Succedeed<Post> post)
+            {
+                var postvm = CreatePostViewModel.FromPost(post);
+                this.ViewData["ReturnAction"] = nameof(Remove);
+                return this.View("RemoveAccept", postvm);
+            }
+            else if (result is IResult res)
+            {
+                return this.View("Error", res?.ToString() ?? string.Empty);
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Remove(Post post)
+        {
+            var result = this.Posts.Hide(post);
+            if (result is ISuccedeed removed)
+            {
+                return this.View("Succeeded");
+            }
+            else if (result is IResult res)
+            {
+                return this.View("Error", res?.ToString() ?? string.Empty);
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+        [Route("/[controller]/Post/{title}/Edit")]
+        [Route("/[controller]/Edit/{title}")]
+        [Authorize]
+        public IActionResult Edit(string title)
+        {
+            var result = this.Posts.NewestByTitle(title);
+            if (result is Succedeed<Post> post)
+            {
+                var postvm = CreatePostViewModel.FromPost(post);
+                this.ViewData["ReturnAction"] = nameof(Edit);
+                return this.View(postvm);
+            }
+            else if (result is IResult res)
+            {
+                return this.View("Error", res?.ToString() ?? string.Empty);
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
 
         [Route("{count:int:min(0)}/Edit")]
         [Authorize]
@@ -27,7 +133,7 @@ namespace RoadToCode.Controllers
             {
                 var postvm = CreatePostViewModel.FromPost(post);
                 this.ViewData["ReturnAction"] = nameof(Edit);
-                return this.View("Edit", postvm);
+                return this.View(postvm);
             }
             else
             {
@@ -82,46 +188,6 @@ namespace RoadToCode.Controllers
             else
             {
                 return this.BadRequest();
-            }
-        }
-
-        [HttpGet]
-        [Route("{title}")]
-        public IActionResult Post(string title)
-        {
-            var post = this.Posts.FirstOrDefault(x => NormalizationProvider.Normalize(x.Title) == title);
-            if (post != null)
-            {
-                var postVm = CreatePostViewModel.FromPost(post);
-                return this.View("StandalonePost", postVm);
-            }
-            else
-            {
-                return this.BadRequest("Error");
-            }
-        }
-
-        [HttpGet]
-        [Route("{count:int:min(0)}/{partial:bool}")]
-        [Route("{count:int:min(0)}")]
-        public IActionResult Post(int count, bool partial = false)
-        {
-            var post = this.Posts.Skip(count).FirstOrDefault();
-            if (post != null)
-            {
-                var postvm = CreatePostViewModel.FromPost(post);
-                if (partial)
-                {
-                    return this.PartialView(postvm);
-                }
-                else
-                {
-                    return this.View("StandalonePost", postvm);
-                }
-            }
-            else
-            {
-                return this.NoContent();
             }
         }
     }

@@ -1,0 +1,15 @@
+@using RoadToCode.Models.Blog
+@model CreatePostViewModel
+
+<script src="~/js/standalonePost.js"></script>
+    <form class="form-horizontal" method="POST" action="~/Blog/@(ViewData["ReturnAction"])">
+        @Html.HiddenFor(t=> t.Id)
+        <div class="control-group col s2 offset-s6 offset-m7 offset-l8">
+            <div class="controls">
+                <button type="submit" class="btn">
+                    Remove
+                </button>
+            </div>
+        </div>
+    </form>
+@Html.Partial("Post", Model)

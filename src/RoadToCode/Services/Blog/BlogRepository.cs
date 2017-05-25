@@ -4,21 +4,28 @@ using Microsoft.Extensions.Configuration;
 using System.Linq;
 using RoadToCode.Models;
 using RoadToCode.Models.Blog;
-using RoadToCode.Models.Results;
+using Pixel.Results;
 
 namespace RoadToCode.Services.Blog
 {
     public class BlogRepository : Repository<Post>, IPostProvider
     {
+        public IEnumerable<string> Categories => this.SelectMany(x => x.Category).Distinct();
         public BlogRepository(string tableName) : base(tableName)
         {
         }
-        public IEnumerable<string> Categories => this.SelectMany(x => x.Category).Distinct();
+
+        public IResult<Post> NewestByTitle(string title)
+        {
+            var post = this.LastOrDefault(x => NormalizationProvider.Normalize(x.Title) == title);
+            var result = post != null ? (IResult<Post>)new Succedeed<Post>(post) : new NotFound<Post>(post);
+            return result;
+        }
 
         public Post GetFeaturedPost()
         {
             var awardedPost = this.Collection.Find(x => x.PostValue == PostValue.Awarded);
-            return awardedPost.OrderBy(x => x.Added).First();
+            return awardedPost.OrderByDescending(x => x.Added).First();
         }
 
         public IEnumerable<Post> GetPostsFromCategory(string category)

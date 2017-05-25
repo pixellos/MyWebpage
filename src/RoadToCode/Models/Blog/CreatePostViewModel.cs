@@ -30,6 +30,7 @@ namespace RoadToCode.Models.Blog
         {
             var result = new CreatePostViewModel();
             result.InjectFrom(post);
+            result.Category = post.Category != null ? String.Join(";", post.Category) : string.Empty;
             return result;
         }
 
@@ -37,6 +38,7 @@ namespace RoadToCode.Models.Blog
         {
             var result = new Post();
             result.InjectFrom(this);
+            result.Category = this.Category.Split(';');
             return result;
         }
     }

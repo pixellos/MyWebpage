@@ -3,9 +3,9 @@
 
 Preview is available at http://roadtocode.azurewebsites.net
 
-[Edit](http://i.imgur.com/B8iylmd.png)
+![Edit](http://i.imgur.com/B8iylmd.png)
 
-[Imgur](http://i.imgur.com/zSxZEXd.png)
+![Imgur](http://i.imgur.com/zSxZEXd.png)
 
 ### ToDo:
 1. Project section

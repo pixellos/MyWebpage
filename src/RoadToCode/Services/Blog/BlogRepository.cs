@@ -33,11 +33,5 @@ namespace RoadToCode.Services.Blog
         {
             return this.Collection.Find(x => x.Category.Contains(category));
         }
-    
-
-        public IResult Edit(Post post)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

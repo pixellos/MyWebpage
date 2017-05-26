@@ -17,6 +17,12 @@ namespace RoadToCode.Controllers
             this.Posts = postProvider;
         }
 
+        public IActionResult Categories()
+        {
+            var categories = this.Posts.Categories;
+            return this.Json(categories);
+        }
+
         [HttpGet]
         [Route("{title}")]
         public IActionResult Post(string title)
@@ -37,13 +43,12 @@ namespace RoadToCode.Controllers
             }
         }
 
-
         [HttpGet]
         [Route("{count:int:min(0)}/{partial:bool}")]
         [Route("{count:int:min(0)}")]
         public IActionResult Post(int count, bool partial = false)
         {
-            var post = this.Posts.Skip(count).FirstOrDefault();
+            var post = this.Posts.OrderByDescending(x=>x.Added).Skip(count).FirstOrDefault();
             if (post != null)
             {
                 var postvm = CreatePostViewModel.FromPost(post);

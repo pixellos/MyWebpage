@@ -92,7 +92,7 @@ namespace Pixel.DataSource
 
         public IEnumerator<T> GetEnumerator()
         {
-            return this.Collection.Find(x => x.State == ModelState.Ok).OrderBy(x => x.Added).GetEnumerator();
+            return this.Collection.Find(x => x.State == ModelState.Ok).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

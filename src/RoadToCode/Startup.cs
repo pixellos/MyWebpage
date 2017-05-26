@@ -26,10 +26,6 @@ namespace RoadToCode
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-            if (env.IsDevelopment())
-            {
-                builder.AddUserSecrets<Startup>();
-            }
             builder.AddEnvironmentVariables();
             this.Configuration = builder.Build();
         }

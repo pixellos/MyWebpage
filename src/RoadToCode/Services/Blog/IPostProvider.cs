@@ -10,6 +10,7 @@ namespace RoadToCode.Services.Blog
         IResult Add(Post post);
         IResult Hide(Post post);
         IResult Edit(Post post);
+        IEnumerable<string> Categories { get; }
         IResult<Post> NewestByTitle(string title);
     }
 }

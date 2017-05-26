@@ -13,9 +13,10 @@ namespace RoadToCode.Models.Blog
         public string Author { get; set; }
         public string Category { get; set; }
         public PostValue PostValue { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime Added { get; set; }
         public string Picture { get; set; }
         public string NormalizedTitle => NormalizationProvider.Normalize(this.Title);
+        
         public CreatePostViewModel()
         {
             this.Id = string.Empty;
@@ -23,7 +24,7 @@ namespace RoadToCode.Models.Blog
             this.Content = string.Empty;
             this.Author = string.Empty;
             this.Category = string.Empty;
-            this.DateTime = DateTime.Now;
+            this.Added = DateTime.Now;
         }
 
         public static CreatePostViewModel FromPost(Post post)

@@ -14,13 +14,7 @@ if (typeof (Scroller) != "function")
             case 37: // Left
                 scrollerInstance.prevHandler();
                 break;
-            case 38: // Up
-                scrollerInstance.prevHandler();
-                break;
             case 39: // Right
-                scrollerInstance.nextHandler();
-                break;
-            case 40: // Down
                 scrollerInstance.nextHandler();
                 break;
         }

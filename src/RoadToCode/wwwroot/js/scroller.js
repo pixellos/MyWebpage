@@ -1,54 +1,59 @@
 "use strict";
 
-let scroller = {}
-scroller.containerSelector = '.post'
-scroller.currentContainerSeeker = function (selector) {
-    let x = window.innerWidth  / 2;
-    let y = window.innerHeight  / 2;
-    let middler = $(document.elementFromPoint(x, y));
-    let result = middler.closest(selector);
-    return result;
-}
+let Scroller = function () {
+    this.containerSelector = '.post'
+    let animateOptions = {
+        duration: 400,
+        queue: false,
+    };
 
-scroller.prevHandler = function () {
-    let searched = scroller.currentContainerSeeker(scroller.containerSelector);
-    if (searched.length == 0) {
-        scroller.currentContainerNotFoundCallBack();
-        return;
+    /**
+     * @param  {jQuery} element -Element to attach handler at
+     */
+    this.attachNextClick = function (element) {
+        element.click(this.nextHandler);
     }
-    let prevElement = searched.prev();
-    var scrollTo = prevElement.length == 0 ? searched.offset().top : prevElement.offset().top;
-    $('html, body').animate({
-        scrollTop: scrollTo
-    }, 400);
-};
-scroller.nextHandler = function () {
-    let searched = scroller.currentContainerSeeker(scroller.containerSelector);
-    if (searched.length == 0) {
-        scroller.currentContainerNotFoundCallBack();
-        return;
+    /**
+     * @param  {jQuery} element -Element to attach handler at
+     */
+    this.attachPrevClick = function (element) {
+        element.click(this.prevHandler)
     }
-    let nextElement = searched.next();
-    var scrollTo = nextElement.length == 0 ? searched.offset().top + searched.height() : nextElement.offset().top;
-    $('html, body').animate({
-        scrollTop: scrollTo
-    }, 400);
-};
 
-/**
- * @param  {jQuery} element -Element to attach handler at
- */
-scroller.attachNextClick = function (element) {
-    element.click(scroller.nextHandler);
-}
+    this.currentContainerSeeker = function (selector) {
+        let x = window.innerWidth / 2;
+        let y = window.innerHeight / 2;
+        let middler = $(document.elementFromPoint(x, y));
+        let result = middler.closest(selector);
+        return result;
+    }
 
-/**
- * @param  {jQuery} element -Element to attach handler at
- */
-scroller.attachPrevClick = function (element) {
-    element.click(scroller.prevHandler)
-}
+    this.prevHandler = function () {
+        let searched = this.currentContainerSeeker(this.containerSelector);
+        if (searched.length == 0) {
+            this.currentContainerNotFoundCallBack();
+            return;
+        }
+        let prevElement = searched.prev();
+        var scrollTo = prevElement.length == 0 ? searched.offset().top : prevElement.offset().top;
+        $('html, body').animate({
+            scrollTop: scrollTo
+        }, animateOptions);
+    };
+    this.nextHandler = function () {
+        let searched = this.currentContainerSeeker(this.containerSelector);
+        if (searched.length == 0) {
+            this.currentContainerNotFoundCallBack();
+            return;
+        }
+        let nextElement = searched.next();
+        var scrollTo = nextElement.length == 0 ? searched.offset().top + searched.height() : nextElement.offset().top;
+        $('html, body').animate({
+            scrollTop: scrollTo
+        }, animateOptions);
+    };
 
-scroller.currentContainerNotFoundCallBack = function () {
-    Materialize.toast("I found nothing :(", 500);
+    this.currentContainerNotFoundCallBack = function () {
+        Materialize.toast("I found nothing :(", 500);
+    }
 }

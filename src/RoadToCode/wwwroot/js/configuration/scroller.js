@@ -1,23 +1,28 @@
 "use strict";
-if (typeof (scroller) != "object")
+if (typeof (Scroller) != "function")
 {
     console.error("scroller must have been referenced before config.")
 }    
-scroller.attachNextClick($("#nextButton"))
-scroller.attachPrevClick($("#prevButton"))
-window.addEventListener('keydown', function(event) {
-  switch (event.keyCode) {
-    case 37: // Left
-          scroller.prevHandler();
-    break;
-    case 38: // Up
-          scroller.prevHandler();
-    break;
-    case 39: // Right
-        scroller.nextHandler();
-    break;
-    case 40: // Down
-         scroller.nextHandler();
-    break;
-  }
-}, false);
+(function setupScroller() {
+    let scrollerInstance = new Scroller();
+    scrollerInstance.containerSelector = '.post'
+    scrollerInstance.attachNextClick($("#nextButton"))
+    scrollerInstance.attachPrevClick($("#prevButton"))
+
+    window.addEventListener('keydown', function (event) {
+        switch (event.keyCode) {
+            case 37: // Left
+                scrollerInstance.prevHandler();
+                break;
+            case 38: // Up
+                scrollerInstance.prevHandler();
+                break;
+            case 39: // Right
+                scrollerInstance.nextHandler();
+                break;
+            case 40: // Down
+                scrollerInstance.nextHandler();
+                break;
+        }
+    }, false);
+})();
